@@ -16,11 +16,11 @@ class  Cama {
 
 public:
 	Cama();
-	explicit Cama(std::string& estadoCama);
+	explicit Cama(int numero, Pabellon  *pabellon);
 	virtual ~Cama();
 
 	void setCodigo(int numero, std::string& letra);
-	void setEstadoCama(std::string& nombre);
+	void setEstadoCama(std::string estado);
 	
 	std::string& getCodigo();
 	std::string& getEstadoCama();

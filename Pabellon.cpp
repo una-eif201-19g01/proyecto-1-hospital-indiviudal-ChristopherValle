@@ -3,6 +3,12 @@ Pabellon::Pabellon() {}
  
 Pabellon::Pabellon(std::string& letra, char genero, int cantidad) : letra(letra), genero(genero), cantidad(cantidad){
 	setCapacidad(20);
+	Cama* cama;
+	for (int cont = 0; cont < capacidad; cont++) {
+		cama = new Cama(cont, letra);
+		camas[cont] = cama;;
+		delete cama;
+	}
 }
 Pabellon::~Pabellon() {}
 
