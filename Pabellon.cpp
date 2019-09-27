@@ -4,9 +4,9 @@ Pabellon::Pabellon() {}
 Pabellon::Pabellon(std::string& letra, char genero, int cantidad) : letra(letra), genero(genero), cantidad(cantidad){
 	setCapacidad(20);
 	Cama* cama;
-	for (int cont = 0; cont < capacidad; cont++) {
+	for (int cont = 0; cont < cantidad; cont++) {
 		cama = new Cama(cont, this);
-		camas[cont] = cama;;
+		camas[cont] = cama;
 		delete cama;
 	}
 }

@@ -5,11 +5,10 @@
 #include "Cama.h"
 #include "Paciente.h"
 
-void runHospital(Paciente pat, Pabellon row[10], Doctor doc[20], Especialidad spec[10], Cama* bed);
+void runHospital(Paciente pat[200], Pabellon row[10], Doctor doc[20], Especialidad spec[10], Cama* bed);
 int main() {
-	Paciente paciente1;
+	Paciente paciente1[200];
 	Cama* cama;
-
 	Doctor doctores[20];
 	Pabellon pabellones[10];
 	Especialidad especialidades[10];
@@ -18,10 +17,10 @@ int main() {
 
 	return 0;
 }
-void runHospital(Paciente pat, Pabellon row[10], Doctor doc[20], Especialidad spec[10], Cama* bed) {
-	int cedula, opcion, doc1, bed1, spec1, spec2, spec3;
+void runHospital(Paciente pat[200], Pabellon row[10], Doctor doc[20], Especialidad spec[10], Cama* bed) {
+	int cedula, opcion, doc1, bed1, bed2, spec1, spec2, spec3, op9;
 	char genero, genero1;
-	std::string nombre, apellido, direccion, patologia, tipoDeCirugia, prioridad, fechaDeCirugia, sector1, doc2, specn;
+	std::string nombre, apellido, direccion, patologia, tipoDeCirugia, prioridad, fechaDeCirugia, sector1, sector2, sector3, doc2, doc3, pat1, specn, codElim;
 		do {
 		std::cout << "\t\tHospital Esperanza" << std::endl << std::endl;
 		std::cout << "Bienvenido:" << std::endl;
@@ -32,36 +31,62 @@ void runHospital(Paciente pat, Pabellon row[10], Doctor doc[20], Especialidad sp
 		std::cout << "\t5. Especialidades" << std::endl;
 		std::cout << "\t6. Ver doctores " << std::endl;
 		std::cout << "\t7. Ver especialidades " << std::endl;
-		std::cout << "\t8. Ver pabellones" << std::endl;
-		std::cout << "\t9. Salir del sistema\n" << std::endl;
+		std::cout << "\t8. Ver Camas" << std::endl;
+		std::cout << "\t9. Ver Paciente" << std::endl;
+		std::cout << "\t10. Borrar Camas" << std::endl;
+		std::cout << "\t11. Salir del sistema\n" << std::endl;
 		std::cout << "\tDigite una opcion:\t" << std::endl;
 		std::cin >> opcion;
 		std::cout << std::endl;
 
 	switch (opcion) {
 	case 1: {
-
+		try {
 			std::cout << "\n\nIngrese los datos del paciente:  ";
 			std::cout << "\nCedula:\t";
 			std::cin >> cedula;
+			if (typeid(cedula).name() != "int") 
+			throw "Cedula invalida";
 			std::cout << "\nNombre:\t";
 			std::cin >> nombre;
+			if (typeid(nombre).name() != "string")
+				throw "Nombre invalido";
 			std::cout << "\nApellido:\t";
 			std::cin >> apellido;
+			if (typeid(apellido).name() != "string")
+				throw "Apellido invalido";
 			std::cout << "\nGenero:\t";
 			std::cin >> genero;
+			if (genero != 'm' || genero != 'f')
+				throw "Genero invalido";
 			std::cout << "\nDireccion:\t";
 			std::cin >> direccion;
+			if (typeid(apellido).name() != "string")
+				throw "Direccion invalida";
 			std::cout << "\nPatologia:\t";
 			std::cin >> patologia;
+			if (typeid(patologia).name() != "string")
+				throw "Patologia invalida";
 			std::cout << "\nTipo de cirugia:\t";
 			std::cin >> tipoDeCirugia;
+			if (typeid(tipoDeCirugia).name() != "string")
+				throw "Tipo de cirugia invalida";
 			std::cout << "\nPrioridad:\t";
 			std::cin >> prioridad;
+			if (typeid(prioridad).name() != "string")
+				throw "Prioridad invalida";
 			std::cout << "\nFecha de la cirugia:\t";
 			std::cin >> fechaDeCirugia;
+			if (typeid(fechaDeCirugia).name() != "string")
+				throw "Fecha de la cirugia invalida";
 			std::cout << "\nEscoja un # de Doctor:\t";
 			std::cin >> doc1;
+			if (typeid(doc1).name() != "int" && doc1 < 20)
+				throw "# de Doctor invalido";
+		}
+		catch (...) {
+			break;
+		}
 			for (int pab = 0; pab < 10; pab++) {
 				if (row[pab].getGenero() == genero) {
 					for (int cam = 0; cam < 20; cam++) {
@@ -147,15 +172,53 @@ void runHospital(Paciente pat, Pabellon row[10], Doctor doc[20], Especialidad sp
 		}
 		break;
 		case 8:
-			std::cout << "\tLos pabellones son: \n";
-			for (int pab3 = 0; pab3 < 10; pab3++) {
-				row[pab3].getLetra();
+			std::cout << "\tIngrese el sector del Pabellon: ";
+			std::cin >> sector2;
+			std::cout << "\tLas camas son: \n";
+			for (int cam = 0; cam < 20; cam++) {
+				std::cout << "Cama ";
+				bed[cam].getCodigo();
+				std::cout << "\n Estado: ";
+				bed[cam].getEstadoCama();
+				}
+			break;
+		case 9:
+			std::cout << "\tIngrese el Paciente: ";
+			std::cin >> pat1;
+			for (int all = 0; all < 200; all++) {
+				if (pat[all].getNombre = pat1){
+					pat[all].reportePaciente;
+				}
+			}
+			
+			break;
+		case 10:
+			std::cout << "\tIngrese el sector del Pabellon:\n";
+			std::cin >> sector3;
+			std::cout << "\tIngrese el numero de cama:\n";
+			std::cin >> bed2;
+			for (int pab1 = 0; pab1 < 10; pab1++) {
+				if (row[pab1].getLetra() == sector3);
+				codElim = sector3 + std::to_string(bed2);
+				for (int cam = 0; cam < 20; cam++) {
+					if (bed[cam].getCodigo() == codElim ) {
+						if (bed[cam].getEstadoCama() == "libre") {
+							delete &bed[cam];
+							row[pab1].setCantidad(row[pab1].getCantidad() - 1);
+							break;
+						}
+						if (bed[cam].getEstadoCama() == "ocupada") {
+							std::cout << "Esta cama está ocupada\n";
+							break;
+						}
+					}
+				}
 			}
 			break;
 	default:
 		std::cout << "\t Entrada invalida \n \tVuelva a intentarlo\n\n";
 		
 	}
-} while (opcion != 9);
+} while (opcion != 11);
 
 }
